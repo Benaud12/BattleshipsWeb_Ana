@@ -22,4 +22,11 @@ feature 'Starting a new game' do
     expect(page).to have_content "What's your name?"
   end
 
+  scenario 'Shows a battleships board to new player' do
+    visit '/new_game'
+    fill_in 'player', :with => 'Michael'
+    click_button 'Enter'
+    expect(page).to have_content 'J10'
+  end
+
 end

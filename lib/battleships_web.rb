@@ -1,4 +1,7 @@
 require 'sinatra/base'
+require_relative 'board'
+require_relative 'cell'
+require_relative 'water'
 
 class BattleshipsWeb_Ana < Sinatra::Base
 
@@ -12,6 +15,8 @@ class BattleshipsWeb_Ana < Sinatra::Base
 
   get '/new_game' do
     @name = session[:name]
+    session[:board] = Board.new(Cell)
+    @board = session[:board].grid
     erb :new_game
   end
 
