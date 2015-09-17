@@ -15,4 +15,11 @@ feature 'Starting a new game' do
     expect(page).to have_content "Welcome to the game, Michael!"
   end
 
+  scenario 'Asks for an actual name to be entered' do
+    visit '/new_game'
+    fill_in 'player', :with => ''
+    click_button 'Enter'
+    expect(page).to have_content "What's your name?"
+  end
+
 end

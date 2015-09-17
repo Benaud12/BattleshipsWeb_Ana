@@ -1,11 +1,11 @@
 <div>
-  <% if @name %>
-  Welcome to the game, <%= @name %>!
+  <% if !@name || @name == '' %>
+    What's your name?
+    <form action="/new_game" method='post'>
+      <input type='text' name='player'>
+      <input type='submit' value='Enter'>
+    </form>
   <% else %>
-  What's your name?
-  <form action="/new_game" method='post'>
-    <input type='text' name='player'>
-    <input type='submit' value='Enter'>
-  </form>
+    Welcome to the game, <%= @name %>!
   <% end %>
 </div>
