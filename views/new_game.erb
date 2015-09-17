@@ -1,25 +1,17 @@
 <div>
-  <% if !@name || @name == '' %>
-    What's your name?
-    <form action="/new_game" method='post'>
-      <input type='text' name='player'>
-      <input type='submit' value='Enter'>
-    </form>
-  <% else %>
     Welcome to the game, <%= @name %>!
-    <p></p>
+    <p>
     <div>
       <table>
         <% @board.each_with_index do |cell, i| %>
           <% if i%10 == 0 %>
             <tr>
           <% end %>
-          <td><%= "#{cell[0]}" %></td>
+          <td><%= cell[0] %></td>
           <% if (i+1)%10 == 0 %>
             </tr>
           <% end %>
         <% end %>
       </table>
     </div>
-  <% end %>
 </div>
