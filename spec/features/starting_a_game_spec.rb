@@ -68,3 +68,5 @@ feature 'Starting a new game' do
     expect(page).to have_selector "input[type=submit][value='Start the game!']"
   end
 end
+
+

@@ -1,0 +1,40 @@
+<h2>Welcome to the game, <%= @name %>!</h2>
+<p>You have <%= 5 - @board.ships_count %> ship(s) left to place.</p>
+<div>
+    <p>
+    <div style='font-family: monospace'>
+      <table style='font-size: 20px'>
+        <tr>
+          <td>&nbsp;</td>
+          <% (1..10).each do |n| %>
+            <td><%= n %></td>
+          <% end %>
+        </tr>
+        <% @board.grid.each_with_index do |cell, i| %>
+          <% if i%10 == 0 %>
+            <tr><td><%= cell[0][0] %>&nbsp;</td>
+          <% end %>
+          <td><%= @board.is_a_ship?(cell[1]) ? "XX" : "~~" %></td>
+          <% if (i+1)%10 == 0 %>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+    <% if @board.ships_count < 5 %>
+      <form action="/display_board" method="post">
+        <p>Choose type of ship:
+        <select name="type">
+          <% @fleet.each do |ship| %>
+            <option value=<%= ship[0] %>><%= ship[1] %></option>
+          <% end %>
+        </select></p>
+        <p>Enter ship position (e.g. D4):
+        <input type="text" name="position" size="4" maxlength="3" required>
+        <p>Choose orientation:
+        <input type="radio" name="orientation" value="horizontally" checked>Horizontal
+        <input type="radio" name="orientation" value="vertically">Vertical</p>
+        <input type="submit" value="Submit"></p>
+      </form>
+    <% end %>
+</div>

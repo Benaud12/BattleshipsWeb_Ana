@@ -3,6 +3,8 @@ require_relative 'board'
 require_relative 'cell'
 require_relative 'water'
 require_relative 'ship'
+require_relative 'player'
+require_relative 'game'
 
 class BattleshipsWeb_Ana < Sinatra::Base
 
@@ -36,6 +38,27 @@ class BattleshipsWeb_Ana < Sinatra::Base
     session[:fleet].delete_if{ |item| item[0] == params[:type].to_sym}
     redirect '/display_board'
   end
+
+  post '/play_game' do
+    player1 = Player.new
+    player1.name = session[:name]
+    player1.board = $board
+    player2 = Player.new
+    player2.name = "Computer"
+    player2.board = Board.new(Cell)
+    player2.random_setup
+    $game = Game.new
+    $game.add_player(player1)
+    $game.add_player(player2)
+    redirect '/play_game'
+  end
+
+  get '/play_game' do
+    @board = $board
+    @fleet = session[:fleet]
+    erb :play_game
+  end
+
 
   def create_session_fleet
     session[:fleet] = [ [:aircraft_carrier, 'Aircraft Carrier (5)'],
