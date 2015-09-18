@@ -34,6 +34,10 @@ class Board
 		ships.count
 	end
 
+	def is_a_ship?(cell)
+		cell.content.respond_to?(:sunk?)
+	end
+
 private
 
  	def next_coord(coord, orientation)
@@ -42,10 +46,6 @@ private
 
 	def next_vertical(coord)
 		coord.to_s.reverse.next.reverse.to_sym
-	end
-
-	def is_a_ship?(cell)
-		cell.content.respond_to?(:sunk?)
 	end
 
 	def any_coord_not_on_grid?(coords)

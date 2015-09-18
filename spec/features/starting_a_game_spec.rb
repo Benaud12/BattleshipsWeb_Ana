@@ -8,13 +8,6 @@ feature 'Starting a new game' do
     expect(page).to have_content "What's your name?"
   end
 
-  scenario 'I can my enter my name' do
-    visit '/'
-    fill_in 'player', :with => 'Michael'
-    click_button 'Play!'
-    expect(page).to have_content "Welcome to the game, Michael!"
-  end
-
   scenario 'Asks for an actual name to be entered' do
     visit '/'
     fill_in 'player', :with => ''
@@ -26,7 +19,23 @@ feature 'Starting a new game' do
     visit '/'
     fill_in 'player', :with => 'Michael'
     click_button 'Play!'
-    expect(page).to have_content 'J10'
+    expect(page).to have_content("~~", :count => 100)
+  end
+
+  scenario 'displays welcome message when board is empty' do
+    visit '/'
+    fill_in 'player', :with => 'Michael'
+    click_button 'Play!'
+    expect(page).to have_content "Welcome to the game, Michael!"
+  end
+
+  scenario 'we can place a ship on the board horizontally' do
+    visit '/'
+    fill_in 'player', :with => 'Michael'
+    click_button 'Play!'
+    fill_in 'position', :with => 'A1'
+    click_button 'Submit'
+    expect(page).to have_content("~~", :count => 95)
   end
 
 end
