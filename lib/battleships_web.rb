@@ -15,7 +15,7 @@ class BattleshipsWeb_Ana < Sinatra::Base
 
   post '/new_game' do
     session[:name] ||= params[:player]
-    redirect to '/' if !session[:name] || session[:name] == ''
+    redirect to '/' if session[:name].to_s == ''
     @name = session[:name]
     session[:board] ||=  Board.new(Cell)
     @board = session[:board].grid
