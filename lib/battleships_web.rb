@@ -5,6 +5,8 @@ require_relative 'water'
 
 class BattleshipsWeb_Ana < Sinatra::Base
 
+  $board = Board.new(Cell)
+
   set :views, proc { File.join(root, '..', 'views') }
 
   enable :sessions
@@ -14,12 +16,15 @@ class BattleshipsWeb_Ana < Sinatra::Base
   end
 
   post '/new_game' do
+    redirect '/' if params[:player].to_s == ''
     session[:name] ||= params[:player]
-    redirect to '/' if session[:name].to_s == ''
+    redirect '/display_board'
+  end
+
+  get '/display_board' do
     @name = session[:name]
-    session[:board] ||=  Board.new(Cell)
-    @board = session[:board].grid
-    erb :new_game
+    @board = $board
+    erb :display_board
   end
 
 

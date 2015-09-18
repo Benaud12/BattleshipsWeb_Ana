@@ -3,7 +3,7 @@
     <p>
     <div>
       <table>
-        <% @board.each_with_index do |cell, i| %>
+        <% @board.grid.each_with_index do |cell, i| %>
           <% if i%10 == 0 %>
             <tr>
           <% end %>
